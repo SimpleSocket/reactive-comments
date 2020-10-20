@@ -1,0 +1,21 @@
+version: '3'
+services:
+  reactive-demo:
+    image: 'reactive-comments'
+    container_name: 'reactive-app'
+    ports:
+      - '8080:8080'
+    networks:
+      - app-net
+    depends_on:
+      - mongo-db
+  mongo-db:
+    image: 'mongo'
+    container_name: 'mongo-db-reactive'
+    ports:
+      - '27017-27019:27017-27019'
+    networks:
+      - app-net
+networks:
+  app-net:
+    driver: bridge

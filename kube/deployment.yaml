@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: reactive-comments
+  name: reactive-comments
+spec:
+  selector:
+    app: reactive-comments
+  ports:
+    - protocol: TCP
+      port: 8080
+      nodePort: 30081
+  type: NodePort
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reactive-comments
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reactive-comments
+  template:
+    metadata:
+      labels:
+        app: reactive-comments
+    spec:
+      containers:
+        - name: app
+          image: pibmllxeajarfaopqo/reactive-comments:latest
+          ports:
+            - containerPort: 8080
+
